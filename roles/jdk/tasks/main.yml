@@ -1,0 +1,26 @@
+---
+- name: Check if JDK installed
+  shell: /usr/libexec/java_home -V
+  register: check_result
+  ignore_errors: yes
+
+- name: Download JDK
+  command: >
+    chdir={{ user_home }}/Downloads
+    curl -v -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" {{ jdk_url }} -o {{ jdk_pkg }}
+  when: "'Unable to find any JVMs' in check_result.stderr"
+
+- name: Mount JDK image
+  command: >
+    chdir={{ user_home }}/Downloads
+    hdiutil attach {{ jdk_pkg }}
+  when: "'Unable to find any JVMs' in check_result.stderr"
+
+- name: Install JDK
+  command: >
+    installer -package {{ jdk_pkg_path }} -target /
+  when: "'Unable to find any JVMs' in check_result.stderr"
+
+- name: Unmount JDK image
+  command: hdiutil detach {{ jdk_image }}
+  when: "'Unable to find any JVMs' in check_result.stderr"

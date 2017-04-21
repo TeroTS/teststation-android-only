@@ -1,0 +1,22 @@
+---
+- name: install appium
+  npm:
+   name=appium
+   version={{ appium_version }}
+   global=yes
+   state=present
+
+- name: install appium doctor
+  npm:
+   name=appium-doctor
+   global=yes
+   state=present
+
+- name: install appium python client library
+  pip:
+    name=Appium-Python-Client
+    state=present
+    virtualenv={{ home }}/venv
+    virtualenv_command={{ user_home }}/Library/Python/2.7/bin/virtualenv
+    
+  

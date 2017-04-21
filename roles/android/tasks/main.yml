@@ -1,0 +1,28 @@
+---
+# - name: Install ADB
+#  homebrew: name=android-platform-tools state=present
+
+- name: Check if SDK installed
+  stat: path={{ home }}/android-sdk
+  register: result
+
+- name: Download sdk tools
+  get_url: >
+    url=http://dl.google.com/android/repository/tools_r{{ sdk_version }}-macosx.zip
+    dest={{ home }}/android-sdk_r{{ sdk_version }}-macosx.zip
+  register: sdk_file
+  when: result.stat.exists == False
+
+- name: Unarchive sdk tools
+  command: unzip {{ sdk_file.dest }} -d {{ home }}/android-sdk
+  when: result.stat.exists == False
+
+- name: Install Android SDKs
+  shell: echo y | {{ android_home }}/tools/android update sdk -u -a -t "{{ item }}"
+  with_items:
+    - tools
+    - platform-tools
+    - build-tools-{{ build_tools_version }}
+    - android-{{ api_level }}
+    - extra-android-support
+  when: result.stat.exists == False

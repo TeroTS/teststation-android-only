@@ -1,0 +1,14 @@
+user: teststation
+user_home: /Users/{{ user }}
+home: /Users/{{ user }}/teststation
+
+jdk_url: http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jdk-8u60-macosx-x64.dmg
+jdk_pkg: jdk-8u60-macosx-x64.dmg
+jdk_pkg_path: /Volumes/JDK\ 8\ Update\ 60/JDK\ 8\ Update\ 60.pkg
+jdk_image: /Volumes/JDK\ 8\ Update\ 60
+
+android_home: /Users/{{ user }}/teststation/android-sdk
+sdk_version: 25.2.3
+build_tools_version: 25.0.1
+api_level: 25
+appium_version: 1.6.4

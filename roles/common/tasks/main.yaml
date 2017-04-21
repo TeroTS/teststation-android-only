@@ -1,0 +1,26 @@
+---
+- name: Create home directory
+  file: path={{ home }} state=directory
+
+- name: Create .bash_profile
+  copy: src=.bash_profile dest={{ user_home }}/.bash_profile
+
+- name: Check if brew installed
+  stat: path=/usr/local/bin/brew
+  register: brew
+
+- name: Install brew
+  shell: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" </dev/null
+  ignore_errors: yes
+  when: brew.stat.exists == False
+
+- name: Install nodejs
+  homebrew:
+    name=node
+    state=present
+
+- name: Install virtualenv
+  pip:
+    name: virtualenv
+    extra_args: --user
+    state: present

@@ -1,0 +1,21 @@
+---
+- name: Install Robot Framework
+  pip: >
+    name=robotframework
+    state=present
+    virtualenv={{ home }}/venv
+    virtualenv_command={{ user_home }}/Library/Python/2.7/bin/virtualenv
+
+- name: Install selenium2Library
+  pip: >
+    name=robotframework-selenium2library
+    state=present
+    virtualenv={{ home }}/venv
+    virtualenv_command={{ user_home }}/Library/Python/2.7/bin/virtualenv
+
+- name: Install robot appium library
+  pip: >
+    name=robotframework-appiumlibrary
+    state=present
+    virtualenv={{ home }}/venv
+    virtualenv_command={{ user_home }}/Library/Python/2.7/bin/virtualenv

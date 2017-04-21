@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  remote_user: "{{ user }}"
+
+  roles:
+    - common
+    - {role: jdk, become: yes}
+    - appium
+    - RF
+    - android
+
+  # environment:
+  #   PATH: "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
+  #   ANDROID_HOME: /Users/{{ user }}/teststation/android-sdk
